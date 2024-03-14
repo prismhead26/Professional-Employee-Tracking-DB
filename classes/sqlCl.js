@@ -21,7 +21,7 @@ class Sql {
     selectFrom(table) {
         return `SELECT * FROM ${table}`
     }
-    addDepartment() {
+    addDepartment(deptName) {
         return `INSERT INTO departments (name) VALUES (?)`
     }
     addRole() {
