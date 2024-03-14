@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@mysql/xdevapi": "8.0.35",
+    "dotenv": "^16.4.5",
+    "fast-csv": "^5.0.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.2"
+  }
+}
