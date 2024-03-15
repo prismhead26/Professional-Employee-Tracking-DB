@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS employees(
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     role_id BIGINT unsigned,
+    manager_name VARCHAR(255),
     manager_id BIGINT unsigned,
     FOREIGN KEY (role_id)
     REFERENCES roles(id)

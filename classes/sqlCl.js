@@ -1,17 +1,7 @@
 
 class Sql {
     constructor(){
-        this.department = ''
-        this.role = ''
-        this.salary = ''
-        this.inherent = ''
-        this.firstName = ''
-        this.lastName = ''
-
     }
-    // setDepartment(department) {
-    //     this.department = `CREATE TABLE IF NOT EXISTS ${department};`
-    // }
     dropTable(table){
         return `DROP TABLE IF EXISTS ${table};`
     }
@@ -28,10 +18,13 @@ class Sql {
         return `INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)`
     }
     addEmployee() {
-        return `INSERT INTO employees (first_name, last_name, role_id, manager_id) (?, ?, ?, ?)`
+        return `INSERT INTO employees (first_name, last_name) VALUES (?, ?)`
     }
     updateEmployee() {
         return `UPDATE employees SET role_id=? WHERE first_name=?`
+    }
+    viewRoles() {
+        return `SELECT id, title, salary FROM roles`
     }
 }
 
