@@ -1,12 +1,5 @@
 
-const questions = [
-    {   type: 'list',
-        name: 'test',
-        message: 'Welcome! First lets decide on the database:',
-        choices: [ 'Create an employeeTracker_db', 'Use an existing one', 'Hello World' ]
-    },
-]
-
+// Starting questions / Main screen
 const startQuestions = [
     {
         type: 'list',
@@ -23,6 +16,7 @@ const startQuestions = [
             'quit' ]
     }
 ]
+// Add a department
 const departmentQuestion = [
     {
         type: 'input',
@@ -30,6 +24,7 @@ const departmentQuestion = [
         name: 'departmentName'
     }
 ]
+// Add a role
 const roleQuestions = [
     {
         type: 'input',
@@ -47,7 +42,8 @@ const roleQuestions = [
         name: 'departmentId'
     },
 ]
-function employeeQuestions(choices) {
+// Add an employee
+function employeeQuestions(roles, manager) {
     const employeeQs = [
     {
         type: 'input',
@@ -62,23 +58,51 @@ function employeeQuestions(choices) {
     {
         type: 'list',
         message: "What is the employee's role?",
-        name: 'roleId',
-        choices: choices,
-    }
-]
-    return employeeQs;
-}
-const updateQuestions = [
-    {
-        type: 'input',
-        message: 'Which employee would you like to update?',
-        name: 'updateName'
+        name: 'roleName',
+        choices: roles,
     },
     {
         type: 'input',
-        message: 'What do you want to update to?',
-        name: 'updateRole'
-    }
+        message: "What is the employee's role id number?",
+        name: 'roleId',
+    },
+    {
+        type: 'list',
+        message: "Who is the employee's manager?",
+        name: 'managerName',
+        choices: manager,
+    },
+    {
+        type: 'input',
+        message: "What is the manager's id number?",
+        name: 'managerId',
+    },
 ]
+    return employeeQs;
+}
+// update an employee
+function updateQuestions(employees, roles) {
+    const updateQs = [
+    {
+        type: 'list',
+        message: 'Which employee would you like to update?',
+        name: 'updateName',
+        choices: employees,
+    },
+    {
+        type: 'list',
+        message: 'What do you want to update to?',
+        name: 'updateRole',
+        choices: roles,
+    },
+    {
+        type: 'input',
+        message: "What is the new role's corresponding id number?",
+        name: 'updateId',
+    },
+]
+    return updateQs;
+}
 
-module.exports = { questions, startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions }
+
+module.exports = { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions }

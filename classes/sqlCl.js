@@ -11,20 +11,40 @@ class Sql {
     selectFrom(table) {
         return `SELECT * FROM ${table}`
     }
-    addDepartment(deptName) {
+    addDepartment() {
         return `INSERT INTO departments (name) VALUES (?)`
     }
     addRole() {
         return `INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)`
     }
     addEmployee() {
-        return `INSERT INTO employees (first_name, last_name) VALUES (?, ?)`
+        return `INSERT INTO employees (first_name, last_name, role_id, manager_name, manager_id) VALUES (?, ?, ?, ?, ?)`
     }
     updateEmployee() {
-        return `UPDATE employees SET role_id=? WHERE first_name=?`
+        return `UPDATE employees SET role_id=? WHERE first_name=? AND last_name=?`
     }
     viewRoles() {
-        return `SELECT id, title, salary FROM roles`
+        return `SELECT 
+                    roles.id as role_id,
+                    title, 
+                    salary,
+                    employees.manager_name,
+                    employees.manager_id
+                FROM roles
+                LEFT JOIN employees
+                ON roles.id = employees.role_id`
+    }
+    onlyRows() {
+        return `SELECT * FROM roles`
+    }
+    viewEmployees() {
+        return `SELECT 
+                    first_name,
+                    last_name, 
+                    roles.title 
+                FROM employees 
+                JOIN roles 
+                ON employees.role_id = roles.id`
     }
 }
 

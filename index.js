@@ -1,10 +1,11 @@
 const mysql = require('mysql2')
 require('dotenv').config()
 const { Sql } = require('./classes/sqlCl')
-const { questions, startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions } = require('./inquirer')
+const { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions } = require('./inquirer')
 const inquirer = require('inquirer')
 const cTable = require('console.table')
 
+const queries = new Sql()
 
 const con = mysql.createConnection(
     {
@@ -16,45 +17,34 @@ const con = mysql.createConnection(
     }
 )
 
-function str (choices) {
-    console.log(choices)
-    inquirer.prompt([
-        {
-            type: 'input',
-            message: "What is the employee's first name?",
-            name: 'employeeFirst'
-        },
-        {
-            type: 'input',
-            message: "What is the employee's last name?",
-            name: 'employeeLast'
-        },
-        {
-            type: 'list',
-            message: "What is the employee's role?",
-            name: 'roleId',
-            choices: choices,
-        }
-    ]) .then((answers) => {
-    con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId ] , function(err, res) {
-        if (err) throw err;
-        console.table(res)
-        start()
-    })
-    })
-}
-
-async function test(choices) {
-    console.log('test choices function running...')
-    answers = await inquirer.prompt(employeeQuestions(choices))
-    con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId ] , function(err, res) {
+async function createEmployee(roles, manager) {
+    answers = await inquirer.prompt(employeeQuestions(roles, manager))
+    con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId, answers.managerName, answers.managerId ] , function(err, res) {
         if (err) throw err;
         console.table(res)
         start()
     })
 }
 
-const queries = new Sql()
+async function updateRole(names) {
+    con.query(queries.onlyRows(), function(err, res) {
+        if (err) throw err;
+        console.table('roles table: ...', res)
+        const roles = res.map(({ title }) => title)
+        next(names, roles)
+    })
+}
+
+async function next(names, roles) {
+    answers = await inquirer.prompt(updateQuestions(names, roles))
+    var first_name = answers["updateName"].split(' ')[0]
+    var last_name = answers["updateName"].substring(first_name.length).trim()
+    con.query(queries.updateEmployee(), [answers.updateId, first_name, last_name] , function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        start()
+    })
+}
 
 async function start() {
     let answers;
@@ -89,29 +79,22 @@ async function start() {
     } else if (answers.options === 'add an employee') {
         con.query(queries.viewRoles(), function(err, res) {
             if (err) throw err;
-            const choices = res.map(({ title }) =>
-                title
-            )
-            // console.log('Object Values... : ', Object.values(res));
-            console.log('choices... : ', choices)
-            // const output = users.filter(({age}) => age > 30)
-            // const output = choices.filter(({ title }) => title)
-            // console.log('output...: ', output)
-            test(choices)
-            // str(choices)
-        })
-        // answers = await inquirer.prompt(employeeQuestions(choices))
-        // con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId ] , function(err, res) {
-        //     if (err) throw err;
-        //     console.table(res)
-        //     start()
-        // })
-    } else if (answers.options === 'update an employee role') {
-        answers = await inquirer.prompt(updateQuestions)
-        con.query(queries.updateEmployee(), [ answers.updateName, answers.updateRole ] , function(err, res) {
-            if (err) throw err;
+            const roles = res.map(({ title }) => title)
+            const managers = res.map(({ manager_name }) => manager_name)
             console.table(res)
-            start()
+            createEmployee(roles, managers)
+        })
+    } else if (answers.options === 'update an employee role') {
+        con.query(queries.viewEmployees(), function(err, res) {
+            if (err) throw err;
+            const names = res.map(({ first_name, last_name }) =>
+                first_name + ' ' + last_name
+            )
+            console.table(res)
+            // console.log('roles... : ', roles)
+            // console.log('Names... : ', names)
+            // add a function to pass in roles and names into choices type is list
+            updateRole(names)
         })
     } else if (answers.options === 'add a role') {
         answers = await inquirer.prompt(roleQuestions)
@@ -125,9 +108,6 @@ async function start() {
         process.exit()
     }
 }
-
-
-
 
 // start server and run application
 con.connect(function(err) {
