@@ -26,16 +26,16 @@ async function createEmployee(roles, manager) {
     })
 }
 
-async function updateRole(names) {
+async function getRoles(names) {
     con.query(queries.onlyRows(), function(err, res) {
         if (err) throw err;
         console.table('roles table: ...', res)
         const roles = res.map(({ title }) => title)
-        next(names, roles)
+        updateRole(names, roles)
     })
 }
 
-async function next(names, roles) {
+async function updateRole(names, roles) {
     answers = await inquirer.prompt(updateQuestions(names, roles))
     var first_name = answers["updateName"].split(' ')[0]
     var last_name = answers["updateName"].substring(first_name.length).trim()
@@ -91,10 +91,8 @@ async function start() {
                 first_name + ' ' + last_name
             )
             console.table(res)
-            // console.log('roles... : ', roles)
-            // console.log('Names... : ', names)
             // add a function to pass in roles and names into choices type is list
-            updateRole(names)
+            getRoles(names)
         })
     } else if (answers.options === 'add a role') {
         answers = await inquirer.prompt(roleQuestions)

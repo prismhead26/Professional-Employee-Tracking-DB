@@ -1,6 +1,0 @@
-class Inquirer{
-    constructor(){
-
-    }
-    
-}
