@@ -1,8 +1,7 @@
 # Employee Tracker Database
 
 ## Description:
-The main goal of this project is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. After completion of the project, I have a better understanding of building RESTful APIs with Node.js through the Express.js framework. I also learned how to use API request methods along with their respective routes. And lastly I learned some better ways to refactor and format the code, making it easier to read and modify. For instance, instead of having the then() method on the same line as the function, all then/catch methods independently have their own line.
-
+The main goal of this project is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. After completion of the project, I have a better understanding of building and modifying databases with the help MySQL, a relational database management system, and also DBeaver to view to data visually. I also learned how to query data from multiple tables using raw MySQL. And lastly I learned some better ways to refactor and format the code, making it easier to read and modify. I challenged myself to create a class file for the queries and also separated inquirer to enforce separation of concerns.
 ## Table of Contents:
 - [Installation Instructions](#Installation-Instructions)
 - [Usage Information](#Usage-Instructions)
@@ -41,11 +40,11 @@ Step 8: After the "Connection Successful!" appears in the console, the applicati
 
 ## Links
 Screenshots:
-![Home](./assets/images/Home.png)
+![Start Screen](./assets/images/StartScreen.png)
 
-![Notes](./assets/images/Notes.png)
+![Start Screen](./assets/images/StartScrnCont.png)
 
-![Create](./assets/images/Create.png)
+![Tables](./assets/images/Tables.png)
 
 ## Features
 Javascript variables, destructuring, classes and constructors, promises, then/catch methods, async/await methods, etc.
