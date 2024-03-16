@@ -12,7 +12,10 @@ const startQuestions = [
             'add a department', 
             'add a role', 
             'add an employee', 
-            'update an employee role', 
+            'update an employee role',
+            'delete department', 
+            'delete Role', 
+            'delete Employee', 
             'quit' ]
     }
 ]
@@ -103,6 +106,19 @@ function updateQuestions(employees, roles) {
 ]
     return updateQs;
 }
+// Delete department
+function deleteDept(departments) {
+    const deleteDeptQ = [
+        {
+            type: 'input',
+            message: 'Which department would you like to delete?',
+            name: 'delDept',
+            choices: departments
+        }
+    ]
+    return deleteDeptQ;
+}
 
 
-module.exports = { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions }
+
+module.exports = { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions, deleteDept }

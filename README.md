@@ -1,9 +1,7 @@
-# Backend Note Builder
+# Employee Tracker Database
 
 ## Description:
-Developers frequently have to create interfaces that allow non-developers to easily view and interact with information stored in databases. These interfaces are called **content management systems (CMS)**. Your assignment this week is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
-<br>
-The main goal of this project is to create an application that can be used to write and save notes. The application will use an Express.js back end and will save and retrieve note data from a JSON file. The application will be deployed on Heroku. After completion of the project, I have a better understanding	 of building RESTful APIs with Node.js through the Express.js framework.  I also learned how to use API request methods along with their respective routes. And lastly I learned some better ways to refactor and format the code, making it easier to read and modify.  For instance, instead of having the then() method on the same line as the function, all then/catch methods independently have their own line.
+The main goal of this project is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. After completion of the project, I have a better understanding of building RESTful APIs with Node.js through the Express.js framework. I also learned how to use API request methods along with their respective routes. And lastly I learned some better ways to refactor and format the code, making it easier to read and modify. For instance, instead of having the then() method on the same line as the function, all then/catch methods independently have their own line.
 
 ## Table of Contents:
 - [Installation Instructions](#Installation-Instructions)
@@ -30,15 +28,15 @@ Step 2: Connect to the server using MySQL in the same directory as the code.
 <br>
 Step 3: Source the Schema and Seeds files for the database.
 <br>
-Step 1: Open VsCode(preferred) or another source-code editor if not already running.
+Step 4: Open VsCode(preferred) or another source-code editor if not already running.
 <br>
-Step 2: Open integrated terminal once in the main main folder.
+Step 5: Open integrated terminal once in the main folder.
 <br>
-Step 3: "run npm i" / "sudo npm i" in the terminal to install the required dependencies.
+Step 6: "run npm i" / "sudo npm i" in the terminal to install the required dependencies.
 <br>
-Step 4: Now to run the application, Enter "nodemon index.js" or "npm start" and "node index.js" if you don't have npm nodemon.
+Step 7: Now to run the application, Enter "nodemon index.js" or "npm start" and "node index.js" if you don't have npm nodemon.
 <br>
-Step 5: After the "Connection Successful!" appears in the console, the application will proceed to the next stage.
+Step 8: After the "Connection Successful!" appears in the console, the application will proceed to the next stage.
 
 
 ## Links
@@ -53,7 +51,7 @@ Screenshots:
 Javascript variables, destructuring, classes and constructors, promises, then/catch methods, async/await methods, etc.
 
 ## Test Instructions:
-For testing and debugging, the application logs requests and errors in the console as well as some more data from npm package Morgan. Also if you have heroku, feel free to clone GitHub repo and create Heroku app and run "heroku local" in the terminal to test and run locally.
+For testing and debugging, the application logs requests and errors in the console. DBeaver, a client software application and a database administration tool, is also recommended to view the database and see it "visually."
 
 ## License:
 

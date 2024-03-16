@@ -46,6 +46,15 @@ class Sql {
                 JOIN roles 
                 ON employees.role_id = roles.id`
     }
+    deleteDepartments() {
+        return `DELETE FROM departments WHERE name=?`
+    }
+    deleteRoles() {
+        return `DELETE FROM roles WHERE title=?`
+    }
+    deleteEmployees() {
+        return `DELETE FROM employees WHERE id=?`
+    }
 }
 
 module.exports = { Sql }
