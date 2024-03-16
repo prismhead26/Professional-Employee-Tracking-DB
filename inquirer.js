@@ -119,6 +119,4 @@ function deleteDept(departments) {
     return deleteDeptQ;
 }
 
-
-
 module.exports = { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions, deleteDept }
