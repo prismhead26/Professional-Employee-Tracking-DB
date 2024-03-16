@@ -53,7 +53,7 @@ class Sql {
         return `DELETE FROM roles WHERE title=?`
     }
     deleteEmployees() {
-        return `DELETE FROM employees WHERE id=?`
+        return `DELETE FROM employees WHERE first_name=? AND last_name=?`
     }
 }
 

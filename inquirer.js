@@ -13,9 +13,9 @@ const startQuestions = [
             'add a role', 
             'add an employee', 
             'update an employee role',
-            'delete department', 
-            'delete Role', 
-            'delete Employee', 
+            'delete a department', 
+            'delete a role', 
+            'delete an employee', 
             'quit' ]
     }
 ]
@@ -110,9 +110,9 @@ function updateQuestions(employees, roles) {
 function deleteDept(departments) {
     const deleteDeptQ = [
         {
-            type: 'input',
+            type: 'list',
             message: 'Which department would you like to delete?',
-            name: 'delDept',
+            name: 'delete',
             choices: departments
         }
     ]

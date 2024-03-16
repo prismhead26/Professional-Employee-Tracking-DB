@@ -1,7 +1,8 @@
 const mysql = require('mysql2')
 require('dotenv').config()
 const { Sql } = require('./classes/sqlCl')
-const { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions } = require('./inquirer')
+const { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions, deleteDept } = require('./inquirer')
+const { createEmployee, getRoles, updateRole, delDeptFunc, delRoleFunc, delEmpFunc } = require('./queryFuncs')
 const inquirer = require('inquirer')
 const cTable = require('console.table')
 
@@ -17,34 +18,6 @@ const con = mysql.createConnection(
     }
 )
 
-async function createEmployee(roles, manager) {
-    answers = await inquirer.prompt(employeeQuestions(roles, manager))
-    con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId, answers.managerName, answers.managerId ] , function(err, res) {
-        if (err) throw err;
-        console.table(res)
-        start()
-    })
-}
-
-async function getRoles(names) {
-    con.query(queries.onlyRows(), function(err, res) {
-        if (err) throw err;
-        console.table('roles table: ...', res)
-        const roles = res.map(({ title }) => title)
-        updateRole(names, roles)
-    })
-}
-
-async function updateRole(names, roles) {
-    answers = await inquirer.prompt(updateQuestions(names, roles))
-    var first_name = answers["updateName"].split(' ')[0]
-    var last_name = answers["updateName"].substring(first_name.length).trim()
-    con.query(queries.updateEmployee(), [answers.updateId, first_name, last_name] , function(err, res) {
-        if (err) throw err;
-        console.table(res)
-        start()
-    })
-}
 
 async function start() {
     let answers;
@@ -100,6 +73,30 @@ async function start() {
             if (err) throw err;
             console.table(res)
             start()
+        })
+    } else if (answers.options === 'delete a department') {
+        con.query(queries.selectFrom('departments'), function(err, res) {
+            if (err) throw err;
+            const deptNames = res.map(({ name }) => name)
+            console.table(res)
+            // add a function to pass in roles and names into choices type is list
+            delDeptFunc(deptNames)
+        })
+    } else if (answers.options === 'delete a role') {
+        con.query(queries.selectFrom('roles'), function(err, res) {
+            if (err) throw err;
+            const roleNames = res.map(({ title }) => title)
+            console.table(res)
+            // add a function to pass in roles and names into choices type is list
+            delRoleFunc(roleNames)
+        })
+    } else if (answers.options === 'delete an employee') {
+        con.query(queries.selectFrom('employees'), function(err, res) {
+            if (err) throw err;
+            const empNames = res.map(({ first_name, last_name }) => first_name + ' ' + last_name)
+            console.table(res)
+            // add a function to pass in roles and names into choices type is list
+            delEmpFunc(empNames)
         })
     } else if (answers.options === 'quit') {
         con.end()
