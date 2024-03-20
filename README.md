@@ -46,6 +46,9 @@ Screenshots:
 
 ![Tables](./assets/images/Tables.png)
 
+Youtube video link:
+[Youtube Link](https://www.youtube.com/watch?v=5Kr457JyfMw)
+
 ## Features
 Javascript variables, destructuring, classes and constructors, promises, then/catch methods, async/await methods, etc.
 
