@@ -1,7 +1,7 @@
 # Employee Tracker Database
 
 ## Description:
-The main goal of this project is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. After completion of the project, I have a better understanding of building and modifying databases with the help MySQL, a relational database management system, and also DBeaver to view to data visually. I also learned how to query data from multiple tables using raw MySQL. And lastly I learned some better ways to refactor and format the code, making it easier to read and modify. I challenged myself to create a class file for the queries and also separated inquirer to enforce separation of concerns.
+The main goal of this project is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. After completion of the project, I have a better understanding of building and modifying databases with the help of MySQL, a relational database management system, and also DBeaver to view to data visually. I also learned how to query data from multiple tables using raw MySQL. And lastly I learned some better ways to refactor and format the code, making it easier to read and modify. For this project, I challenged myself to create a class file for the queries and also separated inquirer to enforce separation of concerns.
 ## Table of Contents:
 - [Installation Instructions](#Installation-Instructions)
 - [Usage Information](#Usage-Instructions)

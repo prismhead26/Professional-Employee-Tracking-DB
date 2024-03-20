@@ -25,14 +25,17 @@ class Sql {
     }
     viewRoles() {
         return `SELECT 
-                    roles.id as role_id,
+                    id as role_id,
                     title, 
-                    salary,
-                    employees.manager_name,
-                    employees.manager_id
-                FROM roles
-                LEFT JOIN employees
-                ON roles.id = employees.role_id`
+                    salary
+                FROM roles`
+    }
+    viewManagers() {
+        return `SELECT DISTINCT
+                    manager_id,
+                    manager_name
+                FROM employees
+                ORDER BY manager_id ASC`
     }
     onlyRows() {
         return `SELECT * FROM roles`

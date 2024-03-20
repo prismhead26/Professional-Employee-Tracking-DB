@@ -1,7 +1,7 @@
 const mysql = require('mysql2')
 require('dotenv').config()
 const { Sql } = require('./classes/sqlCl')
-const { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions, deleteDept } = require('./inquirer')
+const { startQuestions, departmentQuestion, roleQuestions, managerQuestions,employeeQuestions, updateQuestions, deleteDept } = require('./inquirer')
 const inquirer = require('inquirer')
 const cTable = require('console.table')
 
@@ -17,9 +17,16 @@ const con = mysql.createConnection(
     }
 )
 // create new employee 
-async function createEmployee(roles, manager) {
-    answers = await inquirer.prompt(employeeQuestions(roles, manager))
-    con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId, answers.managerName, answers.managerId ] , function(err, res) {
+async function createEmployee(roles, managers) {
+    answers = await inquirer.prompt(employeeQuestions(roles, managers))
+    con.query(queries.viewManagers(), function(err, res) {
+        if (err) throw err;
+        // creates a space to format table in console
+        console.log('           ')
+        console.table(res)
+    })
+    const managerAns = await inquirer.prompt(managerQuestions)
+    con.query(queries.addEmployee(), [ answers.employeeFirst, answers.employeeLast, answers.roleId, managerAns.managerName, managerAns.managerId ] , function(err, res) {
         if (err) throw err;
         console.table(res)
         start()
@@ -109,9 +116,9 @@ async function start() {
         con.query(queries.viewRoles(), function(err, res) {
             if (err) throw err;
             const roles = res.map(({ title }) => title)
-            const managers = res.map(({ manager_name }) => manager_name)
+            // const managers = res.map(({ manager_name }) => manager_name)
             console.table(res)
-            createEmployee(roles, managers)
+            createEmployee(roles)
         })
     } else if (answers.options === 'update an employee role') {
         con.query(queries.viewEmployees(), function(err, res) {

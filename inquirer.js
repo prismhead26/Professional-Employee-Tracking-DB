@@ -69,11 +69,15 @@ function employeeQuestions(roles, manager) {
         message: "What is the employee's role id number?",
         name: 'roleId',
     },
+]
+    return employeeQs;
+}
+
+const managerQuestions = [
     {
-        type: 'list',
+        type: 'input',
         message: "Who is the employee's manager?",
         name: 'managerName',
-        choices: manager,
     },
     {
         type: 'input',
@@ -81,8 +85,6 @@ function employeeQuestions(roles, manager) {
         name: 'managerId',
     },
 ]
-    return employeeQs;
-}
 // update an employee
 function updateQuestions(employees, roles) {
     const updateQs = [
@@ -119,4 +121,4 @@ function deleteDept(departments) {
     return deleteDeptQ;
 }
 
-module.exports = { startQuestions, departmentQuestion, roleQuestions, employeeQuestions, updateQuestions, deleteDept }
+module.exports = { startQuestions, departmentQuestion, roleQuestions, managerQuestions, employeeQuestions, updateQuestions, deleteDept }
